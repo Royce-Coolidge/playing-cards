@@ -1,0 +1,62 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+} 
+
+body {
+    background-color: gray;
+}
+
+.card {
+ --width: 10em;
+ --height: calc(var(--width) * 1.4);
+ width: var((--width));
+ height: var(--height);
+ background-color: white;
+ border: 1px solid black;
+ border-radius: .25em;
+ padding: .75em;
+ display: grid;
+ grid-template-columns: repeat( 3, 1fr);
+ grid-template-rows: repeat(8, 1fr);
+}
+
+
+.pip {
+    grid-row: span 2;
+    width: 10px;
+    aspect-ratio: 1 / 1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.pip.down {
+    grid-row-start: 3;
+}
+
+[suit="heart"] .pip {
+   
+    background-image: url('svgs/heart.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+[suit="diamond"].pip {
+    background-image: url("svgs/diamond.svg");
+}
+
+[suit="heart"].pip,
+[suit="diamond"].pip {
+    color: red
+}
+
+[value="2"] .pip:first-child {
+    grid-row-start: 1;
+    grid-column-start: 2
+}
+
+[value="2"] .pip:nth-child(2){
+    grid-row-start: 7;
+    grid-column-start:2;
+}
