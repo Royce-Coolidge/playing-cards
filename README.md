@@ -1,5 +1,5 @@
 # playing-cards
-npm clone 
+git clone git@github.com:Royce-Coolidge/playing-cards.git playing-cards
 
 ## Install dependencies
 cd playing-cards
