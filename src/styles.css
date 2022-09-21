@@ -9,6 +9,15 @@
   display: flex;
   flex-wrap: wrap;
   gap: .5em;
+  padding: 5em;
+}
+
+.dealer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: auto;
 }
 
 .card {
@@ -21,6 +30,7 @@
   border-radius: 0.25em;
   padding: 1em;
   display: grid;
+  z-index: 20;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(8, 1fr);
   position: relative;

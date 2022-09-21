@@ -5,6 +5,7 @@ const suits = ["heart", "club", "diamond", "spade"];
 const Cards = () => {
   const [cards, setCards] = useState([]);
   const [removed, setRemoved] = useState([]);
+  const [sortType, setSortType] = useState("ascending");
 
   useEffect(() => {
     const createPackOfCards = () => {
@@ -49,40 +50,65 @@ const Cards = () => {
   };
 
   const sortCards = () => {
-    let sorted = [...cards].sort((a, b) => {
-      return a.value - b.value;
-    });
+    let sorted;
+    if (sortType === "ascending") {
+      sorted = [...cards].sort((a, b) => {
+        return a.value - b.value;
+      });
+    }
+    if (sortType === "descending") {
+      sorted = [...cards].sort((a, b) => {
+        return b.value - a.value;
+      });
+    }
+    if (sortType === "suit") {
+      sorted = [...cards].sort((a, b) => {
+        return a.suit_index - b.suit_index;
+      });
+    }
+
     setCards(sorted);
   };
 
-  function displayCards(card) {
-    let pips = [];
-      let value 
-      switch (card.value) {
-          case 1: value = "A"
-              break;
-          case 11: value = "J"
-              break;
-          case 12: value = "Q"
-              break;
-          case 13: value = "K"
-              break;
-          default:
-              value = card.value
-      }
-      let valueAsNumber = parseInt(value)
-      if (isNaN(valueAsNumber)) {
-          pips = new Array(1).fill(1);
-      }
+  const removeCard = ( id ) => {
+    console.log(id)
+    setCards((cards) => [...cards.filter((x) => x.id !== id)]);
+  };
 
-    pips = new Array(value).fill(value);
+  const displayCards = (card) => {
+    let pips = [];
+    let value;
+    switch (card.value) {
+      case 1:
+        value = "A";
+        break;
+      case 11:
+        value = "J";
+        break;
+      case 12:
+        value = "Q";
+        break;
+      case 13:
+        value = "K";
+        break;
+      default:
+        value = card.value;
+    }
+    let valueAsNumber = parseInt(value);
+    if (isNaN(valueAsNumber)) {
+      pips = new Array(1).fill(1);
+    }
+      pips = new Array(value).fill(value);
+      
 
     return (
       <div
+        id={card.id}
         key={card.id}
         className="card"
         value={value}
         suit={suits[card.suit_index]}
+        onClick={() => removeCard(card.id)}
       >
         {pips.map((pip) => (
           <div className="pip"></div>
@@ -91,16 +117,57 @@ const Cards = () => {
         <div className="corner-number bottom">{value}</div>
       </div>
     );
-  }
+  };
 
   return (
     <>
       <section className="board">
         {cards.map((card) => displayCards(card))}
       </section>
-      <section className="dealer">
+          <section className="dealer">
+              <div>
+                  Click on card to remove it from the pack
+                </div>
         <button onClick={shuffle}>Shuffle</button>
-        <button onClick={sortCards}>Sort</button>
+        <div>
+          <fieldset>
+            <legend>Sort By</legend>
+            <div>
+              <input
+                id="suit"
+                type="radio"
+                name="suit"
+                value="suit"
+                checked={sortType === "suit"}
+                onChange={() => setSortType("suit")}
+              />
+              <label for="suit">Suit</label>
+            </div>
+            <div>
+              <input
+                id="ascending"
+                type="radio"
+                name="ascending"
+                value="ascending"
+                checked={sortType === "ascending"}
+                onChange={() => setSortType("ascending")}
+              />
+              <label for="suit">Ascending (Low to High)</label>
+            </div>
+            <div>
+              <input
+                id="ascending"
+                type="radio"
+                name="descending"
+                value="descending"
+                checked={sortType === "descending"}
+                onChange={() => setSortType("descending")}
+              />
+              <label for="suit">Descending (High to Low)</label>
+            </div>
+            <button onClick={sortCards}>Sort</button>
+          </fieldset>
+        </div>
       </section>
     </>
   );
