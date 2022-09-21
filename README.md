@@ -1,7 +1,7 @@
 # playing-cards
 npm clone 
 
-## 
+## Install dependencies
 cd playing-cards
 npm install
 
