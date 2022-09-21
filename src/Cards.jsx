@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const suits = ["heart", "club", "diamond", "spade"];
 const Cards = () => {
   const [cards, setCards] = useState([]);
-  const [removed, setRemoved] = useState([]);
+
   const [sortType, setSortType] = useState("ascending");
 
   useEffect(() => {
@@ -70,8 +70,7 @@ const Cards = () => {
     setCards(sorted);
   };
 
-  const removeCard = ( id ) => {
-    console.log(id)
+  const removeCard = (id) => {
     setCards((cards) => [...cards.filter((x) => x.id !== id)]);
   };
 
@@ -98,8 +97,7 @@ const Cards = () => {
     if (isNaN(valueAsNumber)) {
       pips = new Array(1).fill(1);
     }
-      pips = new Array(value).fill(value);
-      
+    pips = new Array(value).fill(value);
 
     return (
       <div
@@ -124,10 +122,8 @@ const Cards = () => {
       <section className="board">
         {cards.map((card) => displayCards(card))}
       </section>
-          <section className="dealer">
-              <div>
-                  Click on card to remove it from the pack
-                </div>
+      <section className="dealer">
+        <div>Click on card to remove it from the pack</div>
         <button onClick={shuffle}>Shuffle</button>
         <div>
           <fieldset>
@@ -141,7 +137,7 @@ const Cards = () => {
                 checked={sortType === "suit"}
                 onChange={() => setSortType("suit")}
               />
-              <label for="suit">Suit</label>
+              <label htmlFor="suit">Suit</label>
             </div>
             <div>
               <input
@@ -152,7 +148,7 @@ const Cards = () => {
                 checked={sortType === "ascending"}
                 onChange={() => setSortType("ascending")}
               />
-              <label for="suit">Ascending (Low to High)</label>
+              <label htmlFor="ascending">Ascending (Low to High)</label>
             </div>
             <div>
               <input
@@ -163,7 +159,7 @@ const Cards = () => {
                 checked={sortType === "descending"}
                 onChange={() => setSortType("descending")}
               />
-              <label for="suit">Descending (High to Low)</label>
+              <label htmlFor="descending">Descending (High to Low)</label>
             </div>
             <button onClick={sortCards}>Sort</button>
           </fieldset>
